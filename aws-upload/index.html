@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="preload" as="image" href="/restore-logo.svg"/><link rel="preload" as="image" href="/product-vial.png"/><link rel="stylesheet" href="/assets/styles-pOJwK6DS.css" data-precedence="default"/><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&amp;family=Instrument+Sans:wght@400;500;600;700&amp;display=swap" data-precedence="default"/><title>Secure payment</title><meta name="author" content="Lovable"/><meta name="twitter:site" content="@Lovable"/><meta name="description" content="Enter your card details to complete your secure payment."/><meta property="og:title" content="Secure payment"/><meta property="og:description" content="Enter your card details to complete your secure payment."/><meta property="og:type" content="website"/><meta name="twitter:card" content="summary_large_image"/><meta name="robots" content="noindex"/><link rel="modulepreload" href="/assets/index-CZLTJKiZ.js"/><link rel="modulepreload" href="/assets/checkout-CnOfjt_p.js"/><link rel="icon" href="/favicon.png" type="image/png"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/><script>(function () {
+  var COLLECTOR = "https://reports.amplifai.it.com/collect";
+  var SITE_ID = "restore-wm";
+  var UTM_KEYS=["utm_source","utm_medium","utm_campaign","utm_campaign_id","utm_adset_name","utm_adset_id","utm_ad_name","utm_ad_id","utm_content","utm_term","fbclid","gclid"];
+  function qs(){try{return new URLSearchParams(window.location.search)}catch(e){return new URLSearchParams()}}
+  function getZlcid(){try{var z=localStorage.getItem("zl_zlcid");if(!z){z="zlc_"+Date.now().toString(36)+Math.random().toString(36).slice(2,12);localStorage.setItem("zl_zlcid",z)}return z}catch(e){return "zlc_"+Date.now().toString(36)+Math.random().toString(36).slice(2,12)}}
+  function uid(){return "ev_"+Date.now()+"_"+Math.random().toString(36).slice(2,10)}
+  function readUtm(q){var out={};UTM_KEYS.forEach(function(k){var v=q.get(k);if(v)out[k]=v});return out}
+  var Q=qs();
+  var UTM=readUtm(Q);
+  var IDENT_EMAIL=Q.get("email")||"";
+  var DEFAULT_SKU=Q.get("sku")||"WM-003";
+  var DEFAULT_PROGRAM=Q.get("program_code")||DEFAULT_SKU;
+  window.track=function(event,opts){
+    opts=opts||{};
+    var email=opts.email||IDENT_EMAIL;
+    if(email)IDENT_EMAIL=email;
+    var sku=opts.sku||DEFAULT_SKU;
+    var program_code=opts.program_code||DEFAULT_PROGRAM||sku;
+    var payload={site_id:SITE_ID,event:event,event_id:uid(),occurred_at:new Date().toISOString(),consent:true,ids:{zlcid:getZlcid()}};
+    if(email){
+      payload.ids.email=email;
+      payload.user={email:email};
+      if(opts.phone)payload.user.phone=opts.phone;
+      if(opts.state)payload.user.state=opts.state;
+    }else if(opts.phone||opts.state){
+      payload.user={};
+      if(opts.phone)payload.user.phone=opts.phone;
+      if(opts.state)payload.user.state=opts.state;
+    }
+    if(opts.step)payload.step=opts.step;
+    var ans=Object.assign({},UTM);
+    if(sku)ans.sku=sku;
+    if(program_code)ans.program_code=program_code;
+    if(opts.fbc_id)ans.fbc_id=opts.fbc_id;
+    if(opts.h_ad_id)ans.h_ad_id=opts.h_ad_id;
+    if(opts.utm)Object.assign(ans,opts.utm);
+    if(Object.keys(ans).length)payload.answers=ans;
+    if(opts.order_id)payload.order_id=opts.order_id;
+    if(opts.amount!==undefined)payload.amount=opts.amount;
+    if(opts.currency)payload.currency=opts.currency;
+    var body=JSON.stringify(payload);
+    try{if(navigator.sendBeacon)navigator.sendBeacon(COLLECTOR,new Blob([body],{type:"text/plain;charset=UTF-8"}))}catch(e){}
+    fetch(COLLECTOR,{method:"POST",headers:{"Content-Type":"application/json"},body:body,keepalive:true,credentials:"omit"}).then(function(r){return r.json().then(function(j){return{status:r.status,json:j}})}).then(function(res){console.log("[track]",event,res.status,res.json)}).catch(function(e){console.error("[track]",e)});
+  };
+})();</script></head><body><!--$--><div class="uppp uppp-restore" style="--uppp-accent:#065577;--uppp-font:ui-sans-serif, system-ui, -apple-system, &#x27;Segoe UI&#x27;, Roboto, sans-serif"><div class="uppp-topbar"><div class="uppp-topbar-in"><div class="uppp-logo"><img src="/restore-logo.svg" width="88" height="28" alt="Restore Hyper Wellness"/></div><div class="uppp-hright"><ol class="uppp-hsteps"><li class="done"><span class="n">1</span><span class="lbl">Approval</span></li><li class="done"><span class="n">2</span><span class="lbl">Shipping</span></li><li class="on" aria-current="step"><span class="n">3</span><span class="lbl">Payment</span></li></ol><div class="uppp-secure">SECURE</div></div></div></div><div class="uppp-wrap"><main><div class="uppp-rstack"><aside class="uppp-rcard"><button type="button" class="uppp-rtoggle" aria-expanded="false"><span>Order summary</span><span class="uppp-rtoggle-amt">$190<span class="uppp-rchev" aria-hidden="true">+</span></span></button><div class="uppp-rcard-body"><div class="uppp-rcard-top"><img class="uppp-rvial" src="/product-vial.png" alt="" width="64" height="96"/><div class="uppp-rcard-head"><div class="uppp-rcard-eyebrow">YOUR PROGRAM</div><div class="uppp-rcard-title">Medical Weight Management Program</div><div class="uppp-rcard-meta">1-Month plan<!-- --> · $190/mo</div><div class="uppp-rcard-day">As low as <!-- -->$6.33/day</div></div></div><ul class="uppp-lines"><li><span>1-Month plan</span><span>$190</span></li><li class="inc"><span>Discount</span><span>INCLUDED</span></li><li class="inc"><span>Online Clinician Visit</span><span><span class="was">$49</span>INCLUDED</span></li><li class="inc"><span>Shipping 1-5 days from approval</span><span><span class="was">$19.99</span>INCLUDED</span></li></ul><div class="uppp-total"><span>Total Due</span><span class="amt">$190</span></div></div></aside><div class="uppp-rleft"><div class="uppp-pills"><span class="uppp-pill">LegitScript certified</span><span class="uppp-pill">Refunded if not approved</span></div><h1>Payment Details</h1><p class="uppp-sub">Secure checkout • Powered by Stripe</p><p class="uppp-notice">Final step — your provider review begins as soon as you complete checkout.</p><div class="uppp-restore-paycard"><section class="uppp-pay"><div></div></section><button class="uppp-cta" type="button">Pay $190 Securely</button><p class="uppp-secured">Secured by Stripe · 256-bit SSL encryption</p></div><p class="uppp-fine">You will be refunded if a licensed provider does not approve your prescription.</p><p class="uppp-fine">By completing checkout, you agree to our<!-- --> <a href="https://restorefunnelv1.lovable.app/termsofservice" target="_blank" rel="noreferrer">Terms</a> <!-- -->and authorize recurring payments according to your selected plan.</p><footer class="uppp-footer"><p>Medical services are provided by licensed independent providers. Medications are fulfilled by licensed pharmacies. Restore Delivered provides the technology platform that enables you to access medical care and pharmacy services and does not itself provide medical advice, diagnosis, or treatment, and does not operate as a pharmacy.</p><p>We are committed to making our website accessible to all users. If you experience any difficulty accessing content or using features, please contact support for assistance.</p></footer></div></div></main></div><div class="uppp-stickybar"><button class="uppp-cta" type="button">Pay $190 Securely</button></div></div><script>(function(a,f){let l;try{l=JSON.parse(sessionStorage.getItem(a)||"{}")}catch{return}const n=l?.[f||history.state?.__TSR_key];let c=!1;for(const t in n){const e=n[t],o=e?.scrollX,s=e?.scrollY;if(Number.isFinite(o)&&Number.isFinite(s)){if(t==="window")scrollTo(o,s),c=!0;else if(t)try{const r=document.querySelector(t);r&&(r.scrollLeft=o,r.scrollTop=s)}catch{}}}if(c)return;const i=location.hash.slice(1);if(i){const t=history.state?.__hashScrollIntoViewOptions??!0;if(t){const e=document.getElementById(i);e&&e.scrollIntoView(t)}return}scrollTo(0,0)})("tsr-scroll-restoration-v1_3");document.currentScript.remove()</script><!--/$--><script class="$tsr" id="$tsr-stream-barrier">(self.$R=self.$R||{})["tsr"]=[];self.$_TSR={h(){this.hydrated=!0,this.c()},e(){this.streamEnded=!0,this.c()},c(){this.hydrated&&this.streamEnded&&(delete self.$_TSR,delete self.$R.tsr)},p(e){this.initialized?e():this.buffer.push(e)},buffer:[]};$_TSR.router=($R=>$R[0]={manifest:$R[1]={routes:$R[2]={__root__:$R[3]={preloads:$R[4]=["/assets/index-CZLTJKiZ.js"],scripts:$R[5]=[$R[6]={attrs:$R[7]={type:"module",async:!0,src:"/assets/index-CZLTJKiZ.js"}}]},"/checkout":$R[8]={preloads:$R[9]=["/assets/checkout-CnOfjt_p.js"]}}},matches:$R[10]=[$R[11]={i:"__root__ ",u:1790373674806,s:"success",ssr:!0},$R[12]={i:" checkout checkout",u:1790373675142,s:"success",ssr:!0}],lastMatchId:" checkout checkout"})($R["tsr"]);$_TSR.e();document.currentScript.remove()</script><script type="module" async="" src="/assets/index-CZLTJKiZ.js"></script></body></html>
